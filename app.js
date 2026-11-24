@@ -21,6 +21,7 @@ const User = require("./models/user");
 const Reservation = require("./models/Reservation");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 
@@ -34,6 +35,10 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collectionName: "sessions"
+    }),
     cookie: {
         httpOnly: true,
         secure: false,
