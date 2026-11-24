@@ -1,5 +1,5 @@
 
-const Catway = require("../models/catways");
+const Catway = require("../models/Catways");
 
 // Afficher tous les catways
 exports.getAllCatways = async (req, res) => {
