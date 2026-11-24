@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Port-Russel</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include("partials/header") %>
+
+    <main class="container">
+
+        <section class="card">
+            <h1 class="page-title">Tableau de bord</h1>
+
+            <h2>Bienvenue, <%= user.username %> !</h2>
+            <form action="/logout" method="POST">
+    <button type="submit" class="btn">Se déconnecter</button>
+</form>
+
+            <p>
+                Vous êtes connecté avec l'adresse :
+                <strong><%= user.email %></strong>
+            </p>
+
+            <p>
+                Date du jour :
+                <strong><%= new Date().toLocaleDateString("fr-FR") %></strong>
+            </p>
+        </section>
+
+        <section class="card">
+            <h2 class="page-title">Gestion du port</h2>
+
+            <p>Choisissez une rubrique pour gérer votre port de plaisance.</p>
+
+            <p>
+                <a href="/catways" class="btn">Gérer les catways</a>
+            </p>
+
+            <p>
+                <a href="/reservations" class="btn">Gérer les réservations</a>
+            </p>
+
+            <p>
+                <a href="/users" class="btn">Gérer les utilisateurs</a>
+            </p>
+        </section>
+
+        <section class="card">
+    <h2 class="page-title">Réservations actives</h2>
+
+    <% if (reservations.length === 0) { %>
+        <p>Aucune réservation active actuellement.</p>
+    <% } else { %>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Catway</th>
+                    <th>Client</th>
+                    <th>Bateau</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% reservations.forEach(reservation => { %>
+                    <tr>
+                        <td><%= reservation.catwayNumber %></td>
+                        <td><%= reservation.clientName %></td>
+                        <td><%= reservation.boatName %></td>
+                        <td><%= new Date(reservation.startDate).toLocaleDateString("fr-FR") %></td>
+                        <td><%= new Date(reservation.endDate).toLocaleDateString("fr-FR") %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+    <% } %>
+</section>
+
+    </main>
+
+    <footer>
+        <p>© Port-Russel - Gestion du port de plaisance</p>
+    </footer>
+
+</body>
+</html>

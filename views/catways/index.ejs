@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des catways - Port-Russel</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include("../partials/header") %>
+
+    <main class="container">
+        <h1 class="page-title">Gestion des catways</h1>
+
+        <section class="card">
+            <h2>Ajouter un catway</h2>
+
+<form action="/catways/create" method="POST">
+
+    <div class="form-group">
+        <label for="catwayNumber">Numéro du catway</label>
+        <input type="number" id="catwayNumber" name="catwayNumber" required>
+    </div>
+
+    <div class="form-group">
+        <label for="catwayType">Type du catway</label>
+        <select id="catwayType" name="catwayType" required>
+            <option value="long">Long</option>
+            <option value="short">Short</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="catwayState">État du catway</label>
+        <input type="text" id="catwayState" name="catwayState" required>
+    </div>
+
+    <button type="submit" class="btn">Ajouter le catway</button>
+
+</form>
+            <h2>Liste des catways</h2>
+
+            <% if (catways.length === 0) { %>
+                <p>Aucun catway enregistré.</p>
+            <% } else { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numéro</th>
+                            <th>Type</th>
+                            <th>État</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% catways.forEach(catway => { %>
+                            <tr>
+                                <td><%= catway.catwayNumber %></td>
+                                <td><%= catway.catwayType %></td>
+                                <td>
+    <form action="/catways/<%= catway.catwayNumber %>/update" method="POST">
+        <div class="form-group">
+            <input
+                type="text"
+                name="catwayState"
+                value="<%= catway.catwayState %>"
+                required
+            >
+        </div>
+
+        <button type="submit" class="btn">Modifier</button>
+    </form>
+</td>
+                                <td>
+    <form action="/catways/<%= catway.catwayNumber %>/delete" method="POST"
+          onsubmit="return confirm('Voulez-vous vraiment supprimer ce catway ?');">
+        <button type="submit" class="btn">Supprimer</button>
+    </form>
+</td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </section>
+    </main>
+
+    <footer>
+        <p>© Port-Russel - Gestion du port de plaisance</p>
+    </footer>
+
+</body>
+</html>
