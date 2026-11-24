@@ -18,7 +18,7 @@ const reservationController = require("./controllers/reservationController");
 const userController = require("./controllers/userController");
 
 const User = require("./models/user");
-const Reservation = require("./models/reservation");
+const Reservation = require("./models/Reservation");
 
 const session = require("express-session");
 const swaggerUi = require("swagger-ui-express");
