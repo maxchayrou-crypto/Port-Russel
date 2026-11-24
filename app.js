@@ -21,7 +21,7 @@ const User = require("./models/user");
 const Reservation = require("./models/Reservation");
 
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo").default;
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 
